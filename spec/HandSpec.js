@@ -13,16 +13,30 @@ describe("Hand", function() {
     aceOfClubs = new Card("A", "Club")
   });
 
+  it("adds a card", function() {
+    hand.addCard(jackOfSpades);
+    expect(hand.cards).toContain(jackOfSpades)
+  });
+
   it("should score your hand", function() {
-    hand.cards.push(jackOfSpades);
-    hand.cards.push(queenOfHearts);
+    hand.addCard(jackOfSpades);
+    hand.addCard(queenOfHearts);
     expect(hand.getScore()).toBe(20);
   });
 
   it("should change the value of an Ace from 11 to 1 if you go over 21", function() {
-    hand.cards.push(jackOfSpades);
-    hand.cards.push(queenOfHearts);
-    hand.cards.push(aceOfClubs);
+    hand.addCard(jackOfSpades);
+    hand.addCard(queenOfHearts);
+    hand.addCard(aceOfClubs);
     expect(hand.getScore()).toBe(21);
   });
+
+
+
+  it("clears your hand", function() {
+    hand.addCard(jackOfSpades);
+    hand.addCard(queenOfHearts);
+    hand.clearHand();
+    expect(hand.cards).toEqual([]);
+  })
 })

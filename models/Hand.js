@@ -24,6 +24,14 @@ function Hand() {
 
     return score;
   };
+
+  this.clearHand = function() {
+    this.cards = [];
+  };
+
+  this.addCard = function(card) {
+    this.cards.push(card);
+  }
 }
 
 module.exports = Hand;
