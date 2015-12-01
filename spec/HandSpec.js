@@ -18,7 +18,7 @@ describe("Hand", function() {
     expect(hand.cards).toContain(jackOfSpades)
   });
 
-  it("should score your hand", function() {
+  it("scores your hand", function() {
     hand.addCard(jackOfSpades);
     hand.addCard(queenOfHearts);
     expect(hand.getScore()).toBe(20);
@@ -30,8 +30,6 @@ describe("Hand", function() {
     hand.addCard(aceOfClubs);
     expect(hand.getScore()).toBe(21);
   });
-
-
 
   it("clears your hand", function() {
     hand.addCard(jackOfSpades);
