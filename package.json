@@ -1,0 +1,27 @@
+{
+  "name": "blackjack",
+  "version": "1.0.0",
+  "description": "A game of blackjack between you and the computer.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afayek1/blackjack.git"
+  },
+  "keywords": [
+    "blackjack",
+    "javascript",
+    "oop"
+  ],
+  "author": "Amir Fayek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afayek1/blackjack/issues"
+  },
+  "homepage": "https://github.com/afayek1/blackjack#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
