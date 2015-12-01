@@ -6,6 +6,7 @@ var Deck = function() {
   this.suits = ['Hearts','Diamonds','Spades','Clubs'];
   this.cards = [];
   this.createDeck();
+  this.shuffle();
 }
 
 Deck.prototype.createDeck = function() {
@@ -18,20 +19,16 @@ Deck.prototype.createDeck = function() {
 
 Deck.prototype.shuffle = function() {
     var currentIndex = this.cards.length, temporaryValue, randomIndex ;
-
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-
       // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-
       // And swap it with the current element.
       temporaryValue = this.cards[currentIndex];
       this.cards[currentIndex] = this.cards[randomIndex];
       this.cards[randomIndex] = temporaryValue;
     }
-
     return this.cards;
 }
 
