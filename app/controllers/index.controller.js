@@ -6,7 +6,6 @@ var Controller = function(view){
   this.view = view;
   this.addEventListeners();
   this.setUpBlackJack();
-  this.dealHands();
 };
 
 Controller.prototype.addEventListeners = function() {
@@ -16,11 +15,12 @@ Controller.prototype.addEventListeners = function() {
   this.getView().getPlayAgainButton().onclick = function() {that.clearTable()};
 };
 
-// Instantiate objects
+// Instantiate objects and deal first hand.
 Controller.prototype.setUpBlackJack = function () {
   deck = new Deck();
   humanHand = new Hand("human");
   dealerHand = new Hand("dealer");
+  this.dealHands();
 }
 
 Controller.prototype.getView = function(){
@@ -37,16 +37,17 @@ Controller.prototype.dealHands = function() {
 
 Controller.prototype.dealCard = function(player) {
   var card;
+  // grab a card from the deck
   card = deck.deal();
+  // add card to player's hand
   player.addCard(card);
-  // add card to table
+  // add card to table view
   this.getView().addCard(player.getPlayerType(), card.getNumber(), card.getSuit());
   // update score
   this.getView().updateScore(player.getPlayerType(), player.getScore());
   // Check if you bust
   if (player.getPlayerType() === "human" && this.isBust(player)) {
     this.playAgain(this.getView().humanBusted);
-    this.clearTable();
   }
 };
 
@@ -61,18 +62,16 @@ Controller.prototype.finishRound = function() {
     this.dealCard(dealerHand);
   };
 
-  // Check if dealer busts and prompt to play again
-  if (this.isBust(dealerHand)) {
-    winner = humanHand;
-    this.getView().updateStatus(this.getView().dealerBusts());
-  };
-
   this.checkForWinner();
   this.getView().showPlayAgainButton();
 };
 
 Controller.prototype.checkForWinner = function() {
-  if (dealerHand.getScore() > humanHand.getScore()) {
+  var winner;
+  if (this.isBust(dealerHand)) {
+    winner = humanHand;
+    this.getView().updateStatus(this.getView().dealerBusts());
+  } else if (dealerHand.getScore() > humanHand.getScore()) {
     this.getView().updateStatus(this.getView().dealerWins());
   } else if (dealerHand.getScore() < humanHand.getScore()) {
     this.getView().updateStatus(this.getView().humanWins());
