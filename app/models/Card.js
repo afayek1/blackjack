@@ -11,14 +11,12 @@ function Card(number, suit) {
   };
 
   this.getValue = function() {
-    if (number === "J" || number === "Q" || number === "K") {
+    if (number === "Jack" || number === "Queen" || number === "King") {
       return 10;
-    } else if (number === "A") {
+    } else if (number === "Ace") {
       return 11;
     } else {
       return parseInt(number);
     }
   };
 }
-
-module.exports = Card;

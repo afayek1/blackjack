@@ -1,8 +1,5 @@
-var Card = require('./Card')
-
-
 var Deck = function() {
-  this.numbers = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  this.numbers = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
   this.suits = ['Hearts','Diamonds','Spades','Clubs'];
   this.cards = [];
   this.createDeck();
@@ -35,5 +32,3 @@ Deck.prototype.shuffle = function() {
 Deck.prototype.deal = function() {
   return this.cards.pop();
 };
-
-module.exports = Deck;
