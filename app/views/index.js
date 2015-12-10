@@ -3,12 +3,14 @@ var View = function() {
   this.dealersHand;
 }
 
+
+// DOM SELECTORS
 View.prototype.getHitButton = function() {
-    return document.getElementById("hit");
+  return document.getElementById("hit");
 };
 
 View.prototype.getStayButton = function() {
-    return document.getElementById("stay");
+  return document.getElementById("stay");
 };
 
 View.prototype.getPlayAgainButton = function(status) {
@@ -37,8 +39,11 @@ View.prototype.getButtonContainer = function(first_argument) {
 
 View.prototype.getStatus = function () {
   return document.getElementById("status");
-}
+};
 
+
+
+// TABLE VIEW FX
 View.prototype.updateStatus = function(status) {
   this.getStatus().innerHTML = status;
 };
@@ -48,11 +53,11 @@ View.prototype.clearStatus = function(status) {
 };
 
 View.prototype.updateScore = function(person, score) {
-    if (person==="human") {
-      this.getPlayersScore().innerHTML = "Score: " + score;
-    } else {
-      this.getDealersScore().innerHTML = "Score: " + score;
-    }
+  if (person==="human") {
+    this.getPlayersScore().innerHTML = "Score: " + score;
+  } else {
+    this.getDealersScore().innerHTML = "Score: " + score;
+  }
 };
 
 View.prototype.showPlayAgainButton = function() {
@@ -63,6 +68,29 @@ View.prototype.hidePlayAgainButton = function() {
   this.getPlayAgainButton().style.display = "none";
 };
 
+View.prototype.clearTable = function () {
+  this.getPlayersHand().innerHTML="";
+  this.getDealersHand().innerHTML="";
+}
+
+View.prototype.addCard = function(person, number, suit) {
+  if (person==="human") {
+    var img = document.createElement("img");
+    img.src = "lib/images/SVG-cards-1.3/" + number + "_of_" + suit + ".svg";
+    var li = document.createElement("li");
+    this.getPlayersHand().appendChild(li).appendChild(img);
+  }
+
+  if (person==="dealer") {
+    var img = document.createElement("img");
+    img.src = "lib/images/SVG-cards-1.3/" + number + "_of_" + suit + ".svg";
+    var li = document.createElement("li");
+    this.getDealersHand().appendChild(li).appendChild(img);
+  }
+};
+
+
+// PROMPT TEXTS
 View.prototype.dealerBusts = function() {
   return "Dealer busts! You WIN!!!";
 };
@@ -84,33 +112,3 @@ View.prototype.tie = function() {
 };
 
 
-View.prototype.clearTable = function () {
-  // Get the <ul> element with id="myList"
-  var list = this.getDealersHand();
-  // As long as <ul> has a child node, remove it
-  while (list.hasChildNodes()) {
-      list.removeChild(list.firstChild);
-  }
-  // Get the <ul> element with id="myList"
-  var list = this.getPlayersHand();
-  // As long as <ul> has a child node, remove it
-  while (list.hasChildNodes()) {
-      list.removeChild(list.firstChild);
-  }
-}
-
-View.prototype.addCard = function(person, number, suit) {
-  if (person==="human") {
-    var img = document.createElement("img");
-    img.src = "lib/images/SVG-cards-1.3/" + number + "_of_" + suit + ".svg";
-    var li = document.createElement("li");
-    this.getPlayersHand().appendChild(li).appendChild(img);
-  }
-
-  if (person==="dealer") {
-    var img = document.createElement("img");
-    img.src = "lib/images/SVG-cards-1.3/" + number + "_of_" + suit + ".svg";
-    var li = document.createElement("li");
-    this.getDealersHand().appendChild(li).appendChild(img);
-  }
-};
