@@ -1,4 +1,4 @@
-$(document).ready(function() {
-  var controller = new Controller();
-  controller.initialize();
-});
+window.onload = function() {
+  var view = new View();
+  var controller = new Controller(view);
+};
