@@ -1,8 +1,5 @@
-var Card = require('./Card')
-var Deck = require('./Deck')
-
-
-function Hand() {
+function Hand(player) {
+  this.person = player
   this.cards = [];
 
   this.getScore = function() {
@@ -17,10 +14,11 @@ function Hand() {
       }
     };
 
-    while (score > 21 && aces > 0) {
-      score -= 10;
-      aces -= 0;
-    }
+    while (aces > 0) {
+      if (score>21) {
+        score-=10;
+      }
+    };
 
     return score;
   };
@@ -31,7 +29,9 @@ function Hand() {
 
   this.addCard = function(card) {
     this.cards.push(card);
+  };
+
+  this.getPlayerType = function () {
+    return this.person;
   }
 }
-
-module.exports = Hand;
