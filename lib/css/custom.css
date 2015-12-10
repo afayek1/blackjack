@@ -1,0 +1,11 @@
+#table {
+  background: #038644;
+}
+
+.cards > li > img{
+  width: 50%;
+}
+
+#play-again {
+  display: none;
+}

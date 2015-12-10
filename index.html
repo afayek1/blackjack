@@ -4,38 +4,51 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>BlackJack!</title>
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../lib/css/custom.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/css/custom.css">
 </head>
 <body>
 <div class="container">
     <h1>Welcome to BlackJack!</h1>
 
+    <div id="table" class="container">
+
     <div id="dealer">
       <h2>Dealer</h2>
-      <ul class="cards">
+      <ul id="dealers-hand" class="cards list-inline">
 
       </ul>
+      <h3 id="dealers-score">Score: </h3>
     </div>
 
     <div id="player">
-      <h2>Player</h2>
-      <ul class="cards">
+      <h2>Human</h2>
+      <ul id="players-hand" class="cards list-inline">
 
       </ul>
+      <h3 id="players-score">Score: </h3>
+    </div>
+    <h4 id="status"></h4>
     </div>
 
+
+    <div id="buttons">
     <button type="button" id="hit">
-      hit
+      Hit
     </button>
     <button type="button" id="stay">
-      stay
+      Stay
     </button>
+    <button type="button" id="play-again">Play Again</button>
+    </div>
   </div>
 
-
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="index.js"></script>
-  <script src="../app.js"></script>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="app/models/Card.js"></script>
+  <script src="app/models/Deck.js"></script>
+  <script src="app/models/Hand.js"></script>
+  <script src="app/views/index.js"></script>
+  <script src="app/controllers/index.controller.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
