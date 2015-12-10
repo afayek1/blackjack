@@ -52,11 +52,6 @@ Controller.prototype.dealCard = function(player) {
 };
 
 Controller.prototype.finishRound = function() {
-  var playAgainInput;
-  var winner;
-  var playAgainText;
-  var answer;
-
   // Dealer hits while score less than 17
   while (dealerHand.getScore() < 17) {
     this.dealCard(dealerHand);
