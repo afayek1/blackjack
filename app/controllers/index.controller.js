@@ -2,11 +2,14 @@ var Controller = function(view){
   var deck;
   var dealerHand;
   var humanHand;
-
   this.view = view;
   this.addEventListeners();
   this.setUpBlackJack();
 };
+
+Controller.prototype.getView = function(){
+  return this.view;
+}
 
 Controller.prototype.addEventListeners = function() {
   var that = this;
@@ -23,16 +26,29 @@ Controller.prototype.setUpBlackJack = function () {
   this.dealHands();
 }
 
-Controller.prototype.getView = function(){
-  return this.view;
-}
-
-// Initial deal for each round
+// Initial deal for each round.
 Controller.prototype.dealHands = function() {
   this.dealCard(humanHand);
   this.dealCard(humanHand);
   this.dealCard(dealerHand);
   this.dealCard(dealerHand);
+};
+
+// Check for BlackJack. Return true and update table view if there is one.
+Controller.prototype.checkBlackJack = function() {
+  var dealerScore = dealerHand.getScore();
+  var humanScore = humanHand.getScore();
+  if (dealerScore === 21 && humanScore === 21 ) {
+    this.getView().updateStatus(this.getView().tie());
+    return true;
+  } else if (humanScore === 21) {
+    this.getView().updateStatus(this.getView().humanWins());
+    return true;
+  } else if (dealerScore === 21){
+    this.getView().updateStatus(this.getView().dealerWins());
+    return true;
+  };
+  return false;
 };
 
 Controller.prototype.dealCard = function(player) {
@@ -45,10 +61,19 @@ Controller.prototype.dealCard = function(player) {
   this.getView().addCard(player.getPlayerType(), card.getNumber(), card.getSuit());
   // update score
   this.getView().updateScore(player.getPlayerType(), player.getScore());
+
   // Check if you bust
   if (player.getPlayerType() === "human" && this.isBust(player)) {
-    this.playAgain(this.getView().humanBusted);
-  }
+    this.getView().updateStatus(this.getView().humanBusts());
+    this.getView().disableButtons();
+    this.getView().showPlayAgainButton();
+  };
+
+  // Check is there is BlackJack on the table.
+  if (this.checkBlackJack()) {
+    this.getView().disableButtons();
+    this.getView().showPlayAgainButton();
+  };
 };
 
 Controller.prototype.finishRound = function() {
@@ -56,23 +81,27 @@ Controller.prototype.finishRound = function() {
   while (dealerHand.getScore() < 17) {
     this.dealCard(dealerHand);
   };
-
   this.checkForWinner();
   this.getView().showPlayAgainButton();
 };
 
 Controller.prototype.checkForWinner = function() {
-  var winner;
-  if (this.isBust(dealerHand)) {
-    winner = humanHand;
+  if (this.checkBlackJack()) {
+    return true;
+  } else if (this.isBust(dealerHand)) {
     this.getView().updateStatus(this.getView().dealerBusts());
+    return true;
   } else if (dealerHand.getScore() > humanHand.getScore()) {
     this.getView().updateStatus(this.getView().dealerWins());
+    return true;
   } else if (dealerHand.getScore() < humanHand.getScore()) {
     this.getView().updateStatus(this.getView().humanWins());
+    return true;
   } else {
     this.getView().updateStatus(this.getView().tie());
+    return true;
   };
+  return false;
 };
 
 Controller.prototype.isBust = function(player) {
@@ -85,7 +114,8 @@ Controller.prototype.clearTable = function() {
   humanHand.clearHand();
   dealerHand.clearHand();
   this.getView().clearTable();
-  this.getView().hidePlayAgainButton();
   this.getView().clearStatus();
   this.dealHands();
+  this.getView().enableButtons();
+  this.getView().hidePlayAgainButton();
 };

@@ -61,11 +61,22 @@ View.prototype.updateScore = function(person, score) {
 };
 
 View.prototype.showPlayAgainButton = function() {
+  this.disableButtons();
   this.getPlayAgainButton().style.display = "inline";
 };
 
 View.prototype.hidePlayAgainButton = function() {
   this.getPlayAgainButton().style.display = "none";
+};
+
+View.prototype.enableButtons = function() {
+  this.getHitButton().disabled = false;
+  this.getStayButton().disabled = false;
+};
+
+View.prototype.disableButtons = function() {
+  this.getHitButton().disabled = true;
+  this.getStayButton().disabled = true;
 };
 
 View.prototype.clearTable = function () {
